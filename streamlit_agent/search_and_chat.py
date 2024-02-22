@@ -9,7 +9,7 @@ from langchain_openai import ChatOpenAI
 import streamlit as st
 
 st.set_page_config(page_title="A chatbot to help you run your lab like a business", page_icon="👨‍🔬")
-st.title("🦜 Lab Manager Assistant")
+st.title("👨‍🔬 Lab Manager Assistant")
 
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
@@ -35,6 +35,7 @@ for idx, msg in enumerate(msgs.messages):
         st.write(msg.content)
 
 if prompt := st.chat_input(placeholder="What is a LIMS?"):
+    prompt = prompt + " site:labmanager.com"
     st.chat_message("user").write(prompt)
 
     if not openai_api_key:
