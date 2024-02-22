@@ -8,8 +8,8 @@ from langchain_openai import ChatOpenAI
 
 import streamlit as st
 
-st.set_page_config(page_title="LangChain: Chat with search", page_icon="🦜")
-st.title("🦜 LangChain: Chat with search")
+st.set_page_config(page_title="A chatbot to help you run your lab like a business", page_icon="👨‍🔬")
+st.title("🦜 Lab Manager Assistant")
 
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
@@ -34,14 +34,14 @@ for idx, msg in enumerate(msgs.messages):
                 st.write(step[1])
         st.write(msg.content)
 
-if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?"):
+if prompt := st.chat_input(placeholder="What is a LIMS?"):
     st.chat_message("user").write(prompt)
 
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
-    llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
+    llm = ChatOpenAI(model_name="gpt-4-1106-preview", openai_api_key=openai_api_key, streaming=True)
     tools = [DuckDuckGoSearchRun(name="Search")]
     chat_agent = ConversationalChatAgent.from_llm_and_tools(llm=llm, tools=tools)
     executor = AgentExecutor.from_agent_and_tools(
